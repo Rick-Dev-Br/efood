@@ -1,0 +1,18 @@
+# Indica que este é o arquivo de configuração raiz
+root = true
+
+# Aplica estas regras a todos os arquivos no projeto
+[*]
+# Usa espaços em vez de tabs para indentação
+indent_style = space
+# Cada nível de indentação usa 2 espaços
+indent_size = 2
+# LF (Line Feed - Alimentação de Linha)
+end_of_line = lf
+# Usa codificação UTF-8 para todos os arquivos
+charset = utf-8
+# Remove automaticamente espaços em branco no final das linhas
+trim_trailing_whitespace = true
+# Adiciona automaticamente uma linha vazia no final do arquivo
+insert_final_newline = true
+# nao add comentarios na msm linha de codigo
