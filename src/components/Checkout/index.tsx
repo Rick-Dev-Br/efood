@@ -3,7 +3,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 
-import { RootState } from '../../../store/reducers'
+import { RootState } from '../../../store/index'
 
 import {
   clear,

@@ -5,31 +5,32 @@ import Checkout from '../models/Checkout'
 
 const api = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ebac-fake-api.vercel.app/api/efood'
+    baseUrl: 'https://ebac-fake-api.vercel.app/api/efood',
   }),
   endpoints: (builder) => ({
     getCardapio: builder.query<Cardapio[], void>({
-      query: () => `/restaurantes`
+      query: () => `/restaurantes`,
     }),
 
     getRestaurante: builder.query<Cardapio, string>({
-      query: (id) => `/restaurantes/${id}`
+      query: (id) => `/restaurantes/${id}`,
     }),
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     purchase: builder.mutation<any, Checkout>({
       query: (body) => ({
         url: 'checkout',
         method: 'POST',
-        body
-      })
-    })
-  })
+        body,
+      }),
+    }),
+  }),
 })
 
 export const {
   useGetCardapioQuery,
   useGetRestauranteQuery,
-  usePurchaseMutation
+  usePurchaseMutation,
 } = api
 
 export default api
