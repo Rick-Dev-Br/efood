@@ -3,7 +3,7 @@ type Checkout = {
     {
       id: number
       price: number
-    }
+    },
   ]
   delivery: {
     receiver: string
