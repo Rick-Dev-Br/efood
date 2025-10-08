@@ -47,13 +47,6 @@ const ProductModal = ({
     onClose()
   }
 
-  const getDescription = (description: string) => {
-    if (description.length > 90) {
-      return description.slice(0, 87) + '...'
-    }
-    return description
-  }
-
   return (
     <S.ModalContainer className={isOpen ? 'is-visible' : ''}>
       <S.ModalContent className="container">
@@ -63,7 +56,7 @@ const ProductModal = ({
         </header>
         <div>
           <h4>{name}</h4>
-          <p>{getDescription(description)}</p>
+          <p>{description}</p>
           <p>Serve: de {portion}</p>
           <S.Button onClick={addToCart}>
             Adicionar ao carrinho - {formataPreco(price)}
