@@ -4,6 +4,7 @@ import * as Yup from 'yup'
 import { useNavigate } from 'react-router-dom'
 
 import { RootState } from '../../../store/index'
+import { CartItem } from '../../../store/reducers/Cart'
 
 import {
   clear,
@@ -26,9 +27,17 @@ import {
 
 const Checkout = () => {
   const navigate = useNavigate()
-  const { isPayment } = useSelector((state: RootState) => state.cart)
+  const { isPayment, items } = useSelector((state: RootState) => state.cart)
   const dispatch = useDispatch()
   const [purchase, { data, isSuccess, error }] = usePurchaseMutation()
+
+  const getTotalPrice = () => {
+    return items.reduce((acc, item: CartItem) => {
+      return acc + item.preco * (item.quantidade || 1)
+    }, 0)
+  }
+
+  const totalPrice = getTotalPrice()
 
   const fecharPagamento = () => dispatch(closePayment())
   const fecharPedido = () => dispatch(closeOrder())
@@ -94,13 +103,13 @@ const Checkout = () => {
         .matches(/^[0-9]{4}$/, 'O ano deve estar no formato AAAA'),
     }),
     onSubmit: (values) => {
+      const product = {
+        id: 1,
+        price: totalPrice,
+      }
+
       purchase({
-        products: [
-          {
-            id: 1,
-            price: 150,
-          },
-        ],
+        products: [product],
         delivery: {
           receiver: formikEntrega.values.name,
           address: {
@@ -170,7 +179,9 @@ const Checkout = () => {
         <>
           {isPayment ? (
             <form id="paymentForm" onSubmit={formikPagamento.handleSubmit}>
-              <OrderTitle>Pagamento - valor a pagar R$ 0</OrderTitle>
+              <OrderTitle>
+                Pagamento - valor a pagar R$ {totalPrice.toFixed(2)}
+              </OrderTitle>
 
               <OrderRow>
                 <LabelContainer>
