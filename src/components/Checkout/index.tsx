@@ -15,15 +15,7 @@ import {
 
 import { usePurchaseMutation } from '../../../services/api'
 
-import {
-  OrderContainer,
-  OrderTitle,
-  OrderDescription,
-  OrderButton,
-  OrderRow,
-  LabelContainer,
-  ErrorMessage,
-} from './styles'
+import * as S from './styles'
 
 const Checkout = () => {
   const navigate = useNavigate()
@@ -137,54 +129,54 @@ const Checkout = () => {
 
   if (error) {
     return (
-      <OrderContainer>
-        <OrderTitle>Erro ao realizar o pedido</OrderTitle>
-        <OrderDescription>
+      <S.OrderContainer>
+        <S.OrderTitle>Erro ao realizar o pedido</S.OrderTitle>
+        <S.OrderDescription>
           Ocorreu um erro ao realizar o pedido. Por favor, tente novamente mais
           tarde.
-        </OrderDescription>
-        <OrderButton onClick={() => fecharPedido()}>Voltar</OrderButton>
-      </OrderContainer>
+        </S.OrderDescription>
+        <S.OrderButton onClick={() => fecharPedido()}>Voltar</S.OrderButton>
+      </S.OrderContainer>
     )
   }
 
   return (
-    <OrderContainer>
+    <S.OrderContainer>
       {data && isSuccess ? (
         <>
-          <OrderTitle>Pedido realizado - {data.orderId}</OrderTitle>
-          <OrderDescription>
+          <S.OrderTitle>Pedido realizado - {data.orderId}</S.OrderTitle>
+          <S.OrderDescription>
             Estamos felizes em informar que seu pedido já está em processo de
             preparação e, em breve, será entregue no endereço fornecido.
-          </OrderDescription>
-          <OrderDescription>
+          </S.OrderDescription>
+          <S.OrderDescription>
             Gostaríamos de ressaltar que nossos entregadores não estão
             autorizados a realizar cobranças extras.
-          </OrderDescription>
-          <OrderDescription>
+          </S.OrderDescription>
+          <S.OrderDescription>
             Lembre-se da importância de higienizar as mãos após o recebimento do
             pedido, garantindo assim sua segurança e bem-estar durante a
             refeição.
-          </OrderDescription>
-          <OrderDescription>
+          </S.OrderDescription>
+          <S.OrderDescription>
             Esperamos que desfrute de uma deliciosa e agradável experiência
             gastronômica. Bom apetite!
-          </OrderDescription>
+          </S.OrderDescription>
 
-          <OrderButton className="marginTop" onClick={() => FinishOrder()}>
+          <S.OrderButton className="marginTop" onClick={() => FinishOrder()}>
             Concluir
-          </OrderButton>
+          </S.OrderButton>
         </>
       ) : (
         <>
           {isPayment ? (
             <form id="paymentForm" onSubmit={formikPagamento.handleSubmit}>
-              <OrderTitle>
+              <S.OrderTitle>
                 Pagamento - valor a pagar R$ {totalPrice.toFixed(2)}
-              </OrderTitle>
+              </S.OrderTitle>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="cardName">Nome do cartão</label>
                   <input
                     type="text"
@@ -196,15 +188,15 @@ const Checkout = () => {
                   />
                   {formikPagamento.touched.cardName &&
                     formikPagamento.errors.cardName && (
-                      <ErrorMessage>
+                      <S.ErrorMessage>
                         {formikPagamento.errors.cardName}
-                      </ErrorMessage>
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="cardNumber">Número do cartão</label>
                   <input
                     type="text"
@@ -216,13 +208,13 @@ const Checkout = () => {
                   />
                   {formikPagamento.touched.cardNumber &&
                     formikPagamento.errors.cardNumber && (
-                      <ErrorMessage>
+                      <S.ErrorMessage>
                         {formikPagamento.errors.cardNumber}
-                      </ErrorMessage>
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
+                </S.LabelContainer>
 
-                <LabelContainer width="86px">
+                <S.LabelContainer width="86px">
                   <label htmlFor="cvv">CVV</label>
                   <input
                     type="text"
@@ -234,13 +226,15 @@ const Checkout = () => {
                   />
                   {formikPagamento.touched.cvv &&
                     formikPagamento.errors.cvv && (
-                      <ErrorMessage>{formikPagamento.errors.cvv}</ErrorMessage>
+                      <S.ErrorMessage>
+                        {formikPagamento.errors.cvv}
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="dueMonth">Mês de vencimento</label>
                   <input
                     type="text"
@@ -252,13 +246,13 @@ const Checkout = () => {
                   />
                   {formikPagamento.touched.dueMonth &&
                     formikPagamento.errors.dueMonth && (
-                      <ErrorMessage>
+                      <S.ErrorMessage>
                         {formikPagamento.errors.dueMonth}
-                      </ErrorMessage>
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
+                </S.LabelContainer>
 
-                <LabelContainer>
+                <S.LabelContainer>
                   <label htmlFor="dueYear">Ano de vencimento</label>
                   <input
                     type="text"
@@ -270,27 +264,27 @@ const Checkout = () => {
                   />
                   {formikPagamento.touched.dueYear &&
                     formikPagamento.errors.dueYear && (
-                      <ErrorMessage>
+                      <S.ErrorMessage>
                         {formikPagamento.errors.dueYear}
-                      </ErrorMessage>
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderButton className="marginTop" type="submit">
+              <S.OrderButton className="marginTop" type="submit">
                 Finalizar pagamento
-              </OrderButton>
+              </S.OrderButton>
 
-              <OrderButton type="button" onClick={fecharPagamento}>
+              <S.OrderButton type="button" onClick={fecharPagamento}>
                 Voltar para edição de endereço
-              </OrderButton>
+              </S.OrderButton>
             </form>
           ) : (
             <form id="deliveryForm" onSubmit={formikEntrega.handleSubmit}>
-              <OrderTitle>Entrega</OrderTitle>
+              <S.OrderTitle>Entrega</S.OrderTitle>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="name">Quem irá receber</label>
                   <input
                     type="text"
@@ -301,13 +295,13 @@ const Checkout = () => {
                     onBlur={formikEntrega.handleBlur}
                   />
                   {formikEntrega.touched.name && formikEntrega.errors.name && (
-                    <ErrorMessage>{formikEntrega.errors.name}</ErrorMessage>
+                    <S.ErrorMessage>{formikEntrega.errors.name}</S.ErrorMessage>
                   )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="endereco">Endereço</label>
                   <input
                     type="text"
@@ -319,15 +313,15 @@ const Checkout = () => {
                   />
                   {formikEntrega.touched.endereco &&
                     formikEntrega.errors.endereco && (
-                      <ErrorMessage>
+                      <S.ErrorMessage>
                         {formikEntrega.errors.endereco}
-                      </ErrorMessage>
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="cidade">Cidade</label>
                   <input
                     type="text"
@@ -339,13 +333,15 @@ const Checkout = () => {
                   />
                   {formikEntrega.touched.cidade &&
                     formikEntrega.errors.cidade && (
-                      <ErrorMessage>{formikEntrega.errors.cidade}</ErrorMessage>
+                      <S.ErrorMessage>
+                        {formikEntrega.errors.cidade}
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="cep">CEP</label>
                   <input
                     type="text"
@@ -356,11 +352,11 @@ const Checkout = () => {
                     onBlur={formikEntrega.handleBlur}
                   />
                   {formikEntrega.touched.cep && formikEntrega.errors.cep && (
-                    <ErrorMessage>{formikEntrega.errors.cep}</ErrorMessage>
+                    <S.ErrorMessage>{formikEntrega.errors.cep}</S.ErrorMessage>
                   )}
-                </LabelContainer>
+                </S.LabelContainer>
 
-                <LabelContainer>
+                <S.LabelContainer>
                   <label htmlFor="numero">Número</label>
                   <input
                     type="text"
@@ -372,13 +368,15 @@ const Checkout = () => {
                   />
                   {formikEntrega.touched.numero &&
                     formikEntrega.errors.numero && (
-                      <ErrorMessage>{formikEntrega.errors.numero}</ErrorMessage>
+                      <S.ErrorMessage>
+                        {formikEntrega.errors.numero}
+                      </S.ErrorMessage>
                     )}
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderRow>
-                <LabelContainer>
+              <S.OrderRow>
+                <S.LabelContainer>
                   <label htmlFor="complemento">Complemento (opcional)</label>
                   <input
                     type="text"
@@ -388,20 +386,20 @@ const Checkout = () => {
                     onChange={formikEntrega.handleChange}
                     onBlur={formikEntrega.handleBlur}
                   />
-                </LabelContainer>
-              </OrderRow>
+                </S.LabelContainer>
+              </S.OrderRow>
 
-              <OrderButton className="marginTop" type="submit">
+              <S.OrderButton className="marginTop" type="submit">
                 Continuar com pagamento
-              </OrderButton>
-              <OrderButton type="button" onClick={fecharPedido}>
+              </S.OrderButton>
+              <S.OrderButton type="button" onClick={fecharPedido}>
                 Voltar para o carrinho
-              </OrderButton>
+              </S.OrderButton>
             </form>
           )}
         </>
       )}
-    </OrderContainer>
+    </S.OrderContainer>
   )
 }
 
